@@ -72,8 +72,8 @@
       ]
     },
     "/Users/ahmedibrahim/Developer/git/blockchain-basics/contracts/Math.sol": {
-      "lastModificationDate": 1665019577595,
-      "contentHash": "f3c6df116a7d8d4f198650d3b8c87eef",
+      "lastModificationDate": 1665088087960,
+      "contentHash": "6d302215abcc83a18682f5bbdb736c39",
       "sourceName": "contracts/Math.sol",
       "solcConfig": {
         "version": "0.7.3",
