@@ -35,6 +35,76 @@
       "artifacts": [
         "HelloWorld"
       ]
+    },
+    "/Users/ahmedibrahim/Developer/git/blockchain-basics/contracts/HelloWorld.sol": {
+      "lastModificationDate": 1665017331188,
+      "contentHash": "f94efa95e5ca673639def71e3d5caf03",
+      "sourceName": "contracts/HelloWorld.sol",
+      "solcConfig": {
+        "version": "0.7.3",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.7.3"
+      ],
+      "artifacts": [
+        "HelloWorld"
+      ]
+    },
+    "/Users/ahmedibrahim/Developer/git/blockchain-basics/contracts/Math.sol": {
+      "lastModificationDate": 1665019577595,
+      "contentHash": "f3c6df116a7d8d4f198650d3b8c87eef",
+      "sourceName": "contracts/Math.sol",
+      "solcConfig": {
+        "version": "0.7.3",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        ">=0.7.3"
+      ],
+      "artifacts": [
+        "Math"
+      ]
     }
   }
 }
