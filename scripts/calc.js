@@ -1,26 +1,27 @@
 const API_KEY= process.env.API_KEY;
 const PRIVATE_KEY=process.env.PRIVATE_KEY;
-const CONTRACT_ADDRESS=process.env.CONTRACT_ADDRESS
+const MATH_CONTRACT_ADDRESS=process.env.MATH_CONTRACT_ADDRESS
 
 const { ethers } = require("hardhat");
-const contract = require("../artifacts/contracts/HelloWorld.sol/HelloWorld.json");
+const contract = require("../artifacts/contracts/Math.sol/Math.json");
 
 
-// //Provider - Alchemy
-// const alchemyProvider= new ethers.providers.AlchemyProvider(network="maticmum", API_KEY);
+//Provider - Alchemy
+const alchemyProvider= new ethers.providers.AlchemyProvider(network="maticmum", API_KEY);
 
-// //Signer - Me
-// const signer= new ethers.Wallet(PRIVATE_KEY,alchemyProvider);
+//Signer - Me
+const signer= new ethers.Wallet(PRIVATE_KEY,alchemyProvider);
 
-// //Contract Instance
-// const helloWorldContract= new ethers.Contract(CONTRACT_ADDRESS,contract.abi,signer);
+//Contract Instance
+const mathContract= new ethers.Contract(MATH_CONTRACT_ADDRESS,contract.abi,signer);
 
 async function main(){
 
-   const Math= await ethers.getContractFactory("Math");
-   const math= await Math.deploy();
-
-   console.log("Contract has been created at: "+math.address);
+   const ownerAddress = await mathContract.owner();
+   console.log("Here is the owner address: "+ownerAddress);
+   console.log("Adding two numbers 10 & 12");
+   let result = await mathContract.add(10,12);
+   console.log("The result is: "+ result);
 }
 
 main()

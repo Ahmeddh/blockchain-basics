@@ -1,9 +1,11 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity >=0.7.3;
+pragma solidity >=0.8.0;
+
+import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract Math {
-    uint256 results;
+    uint results;
     address public owner;
     event addNumbers(uint256 firstNo, uint256 secondNo, uint256 results);
     
@@ -11,10 +13,10 @@ contract Math {
         owner=msg.sender;
     }
     
-    function add(uint256 a,uint256 b)public returns (uint256){
+    function add(uint a,uint b)public returns (string memory){
         results=a*b;
         emit addNumbers(a, b, results);
 
-        return results;
+        return Strings.toString(results);
     }
 }
