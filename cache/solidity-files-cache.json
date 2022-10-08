@@ -41,7 +41,7 @@
       "contentHash": "f94efa95e5ca673639def71e3d5caf03",
       "sourceName": "contracts/HelloWorld.sol",
       "solcConfig": {
-        "version": "0.8.0",
+        "version": "0.8.8",
         "settings": {
           "optimizer": {
             "enabled": false,
@@ -72,11 +72,11 @@
       ]
     },
     "/Users/ahmedibrahim/Developer/git/blockchain-basics/contracts/Math.sol": {
-      "lastModificationDate": 1665245975005,
-      "contentHash": "ff8754475f104ec20a613f6034bf8407",
+      "lastModificationDate": 1665266440286,
+      "contentHash": "2fd57a392a423a7e83266f424ece012d",
       "sourceName": "contracts/Math.sol",
       "solcConfig": {
-        "version": "0.8.0",
+        "version": "0.8.8",
         "settings": {
           "optimizer": {
             "enabled": false,
@@ -98,9 +98,7 @@
           }
         }
       },
-      "imports": [
-        "@openzeppelin/contracts/utils/Strings.sol"
-      ],
+      "imports": [],
       "versionPragmas": [
         ">=0.8.0"
       ],
@@ -141,6 +139,78 @@
       ],
       "artifacts": [
         "Strings"
+      ]
+    },
+    "/Users/ahmedibrahim/Developer/git/blockchain-basics/contracts/SimpleStorage.sol": {
+      "lastModificationDate": 1665266512158,
+      "contentHash": "b5ce4de654f9595ada29351786772247",
+      "sourceName": "contracts/SimpleStorage.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [],
+      "versionPragmas": [
+        "^0.8.8"
+      ],
+      "artifacts": [
+        "SimpleStorage"
+      ]
+    },
+    "/Users/ahmedibrahim/Developer/git/blockchain-basics/contracts/StorageFactory.sol": {
+      "lastModificationDate": 1665266577746,
+      "contentHash": "cb68995c1fbf58218776d0b427acbda2",
+      "sourceName": "contracts/StorageFactory.sol",
+      "solcConfig": {
+        "version": "0.8.8",
+        "settings": {
+          "optimizer": {
+            "enabled": false,
+            "runs": 200
+          },
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "./SimpleStorage.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.8"
+      ],
+      "artifacts": [
+        "StorageFactory"
       ]
     }
   }
