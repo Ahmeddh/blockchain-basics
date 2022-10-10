@@ -46,4 +46,12 @@ contract FundMe{
         require(sendSuccess, "Send Failed");
     }
 
+    receive() external payable {
+        fund();
+    }
+
+    fallback() external payable {
+        fund();
+    }
+
 }

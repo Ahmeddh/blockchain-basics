@@ -253,8 +253,8 @@
       ]
     },
     "/Users/ahmedibrahim/Developer/git/blockchain-basics/contracts/FundMe.sol": {
-      "lastModificationDate": 1665417875411,
-      "contentHash": "480eba3f223c8528f384e0d5ada92e2a",
+      "lastModificationDate": 1665418907449,
+      "contentHash": "2994015281fdaf56800c59c69c056ca5",
       "sourceName": "contracts/FundMe.sol",
       "solcConfig": {
         "version": "0.8.8",
