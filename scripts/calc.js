@@ -20,8 +20,11 @@ async function main(){
    const ownerAddress = await mathContract.owner();
    console.log("Here is the owner address: "+ownerAddress);
    console.log("Adding two numbers 10 & 12");
-   var result = await mathContract.add(10,12);
-   console.log("The result is: "+ result);
+   const txResponse = await mathContract.add(10,12);
+   const txReceipt= txResponse.wait();
+   const [addNumbers] = txReceipt.events;
+   const { results } = addNumbers.args;
+   console.log("The result is: "+ results);
 }
 
 main()

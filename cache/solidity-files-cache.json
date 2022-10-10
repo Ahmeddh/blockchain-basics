@@ -72,8 +72,8 @@
       ]
     },
     "/Users/ahmedibrahim/Developer/git/blockchain-basics/contracts/Math.sol": {
-      "lastModificationDate": 1665266440286,
-      "contentHash": "2fd57a392a423a7e83266f424ece012d",
+      "lastModificationDate": 1665361111158,
+      "contentHash": "4b9d9544ef56150f85dc497591947de5",
       "sourceName": "contracts/Math.sol",
       "solcConfig": {
         "version": "0.8.8",
@@ -98,7 +98,9 @@
           }
         }
       },
-      "imports": [],
+      "imports": [
+        "@openzeppelin/contracts/utils/Strings.sol"
+      ],
       "versionPragmas": [
         ">=0.8.0"
       ],
@@ -111,7 +113,7 @@
       "contentHash": "cf46906c4035f51639a22265066a9e78",
       "sourceName": "@openzeppelin/contracts/utils/Strings.sol",
       "solcConfig": {
-        "version": "0.8.0",
+        "version": "0.8.8",
         "settings": {
           "optimizer": {
             "enabled": false,
@@ -251,8 +253,8 @@
       ]
     },
     "/Users/ahmedibrahim/Developer/git/blockchain-basics/contracts/FundMe.sol": {
-      "lastModificationDate": 1665357151136,
-      "contentHash": "86b631a4f6efb71f9515a867394b53fd",
+      "lastModificationDate": 1665417875411,
+      "contentHash": "480eba3f223c8528f384e0d5ada92e2a",
       "sourceName": "contracts/FundMe.sol",
       "solcConfig": {
         "version": "0.8.8",

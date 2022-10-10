@@ -8,25 +8,25 @@ contract FundMe{
 
     // uint254 is PriceConsumerV3;
 
-    address public owner;
-    uint256 public minimumUSD= 50 * 1e18;  
+    address public immutable i_owner;
+    uint256 public constant MINIMUM_USD= 50 * 1e18;  
     address[] public funders;
     mapping(address => uint256) addressToAmountFunded;
 
     using PriceConverter for uint256;
 
     constructor(){
-        owner= msg.sender;
+        i_owner= msg.sender;
     }
 
     modifier onlyOwner(){
-        require(owner==msg.sender);
+        require(i_owner==msg.sender);
         _;
     }
 
     //Fund function
     function fund() public payable{
-        require(msg.value.getConversionRate() >= minimumUSD, "Amount sent is not enough");
+        require(msg.value.getConversionRate() >= MINIMUM_USD, "Amount sent is not enough");
         funders.push(msg.sender);
         addressToAmountFunded[msg.sender] = msg.value;
     }
