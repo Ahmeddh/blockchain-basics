@@ -573,7 +573,7 @@
   "resolved" "https://registry.npmjs.org/@nomiclabs/hardhat-ethers/-/hardhat-ethers-2.2.0.tgz"
   "version" "2.2.0"
 
-"@nomiclabs/hardhat-etherscan@^3.0.0":
+"@nomiclabs/hardhat-etherscan@^3.0.0", "@nomiclabs/hardhat-etherscan@^3.1.1":
   "integrity" "sha512-a6+fJlHTiPjzUYnvwkcduJN0rAKWagQsQNoHJP/9mJ1CZjIkGysGtvVAjNpnrYWocj/Hbi36XmZ0H2aIKlol7A=="
   "resolved" "https://registry.npmjs.org/@nomiclabs/hardhat-etherscan/-/hardhat-etherscan-3.1.1.tgz"
   "version" "3.1.1"
@@ -679,7 +679,7 @@
     "@sentry/types" "5.30.0"
     "tslib" "^1.9.3"
 
-"@solidity-parser/parser@^0.14.0", "@solidity-parser/parser@^0.14.1":
+"@solidity-parser/parser@^0.14.0", "@solidity-parser/parser@^0.14.1", "@solidity-parser/parser@^0.14.3":
   "integrity" "sha512-29g2SZ29HtsqA58pLCtopI1P/cPy5/UAzlcAXO6T/CNJimG6yA8kx4NaseMyJULiC+TEs02Y9/yeHzClqoA0hw=="
   "resolved" "https://registry.npmjs.org/@solidity-parser/parser/-/parser-0.14.3.tgz"
   "version" "0.14.3"
@@ -1668,6 +1668,11 @@
   dependencies:
     "path-type" "^4.0.0"
 
+"dotenv@^16.0.3":
+  "integrity" "sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ=="
+  "resolved" "https://registry.npmjs.org/dotenv/-/dotenv-16.0.3.tgz"
+  "version" "16.0.3"
+
 "ecc-jsbn@~0.1.1":
   "integrity" "sha512-eh9O+hwRHNbG4BLTjEl3nw044CkGm5X6LoaCf7LPp7UU8Qrt47JYNi6nPX8xjW97TKGKm1ouctg0QSpZe9qrnw=="
   "resolved" "https://registry.npmjs.org/ecc-jsbn/-/ecc-jsbn-0.1.2.tgz"
@@ -1688,6 +1693,11 @@
     "inherits" "^2.0.4"
     "minimalistic-assert" "^1.0.1"
     "minimalistic-crypto-utils" "^1.0.1"
+
+"emoji-regex@^10.1.0":
+  "integrity" "sha512-97g6QgOk8zlDRdgq1WxwgTMgEWGVAQvB5Fdpgc1MkNy56la5SKP9GsMXKDOdqwn90/41a8yPwIGk1Y6WVbeMQA=="
+  "resolved" "https://registry.npmjs.org/emoji-regex/-/emoji-regex-10.2.1.tgz"
+  "version" "10.2.1"
 
 "emoji-regex@^7.0.1":
   "integrity" "sha512-CwBLREIQ7LvYFB0WyRvwhq5N5qPhc6PMjD6bYggFlI5YyDgl+0vxq5VHbMOFqLg7hfWzmu8T5Z1QofhmTIhItA=="
@@ -1764,6 +1774,11 @@
   "integrity" "sha512-vbRorB5FUQWvla16U8R/qgaFIya2qGzwDrNmCZuYKrbdSUMG6I1ZCGQRefkRVhuOkIGVne7BQ35DSfo1qvJqFg=="
   "resolved" "https://registry.npmjs.org/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz"
   "version" "1.0.5"
+
+"escape-string-regexp@^4.0.0":
+  "integrity" "sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA=="
+  "resolved" "https://registry.npmjs.org/escape-string-regexp/-/escape-string-regexp-4.0.0.tgz"
+  "version" "4.0.0"
 
 "escape-string-regexp@4.0.0":
   "integrity" "sha512-TtpcNJ3XAzx3Gq8sWRzJaVajRs0uVxA2YAkdb1jm2YkPz4G6egUFAyA3n5vtEIZefPk5Wa4UXbKuS5fKkJWdgA=="
@@ -3534,7 +3549,19 @@
   "resolved" "https://registry.npmjs.org/prelude-ls/-/prelude-ls-1.1.2.tgz"
   "version" "1.1.2"
 
-"prettier@^2.3.1":
+"prettier-plugin-solidity@^1.0.0-beta.24":
+  "integrity" "sha512-6JlV5BBTWzmDSq4kZ9PTXc3eLOX7DF5HpbqmmaF+kloyUwOZbJ12hIYsUaZh2fVgZdV2t0vWcvY6qhILhlzgqg=="
+  "resolved" "https://registry.npmjs.org/prettier-plugin-solidity/-/prettier-plugin-solidity-1.0.0-beta.24.tgz"
+  "version" "1.0.0-beta.24"
+  dependencies:
+    "@solidity-parser/parser" "^0.14.3"
+    "emoji-regex" "^10.1.0"
+    "escape-string-regexp" "^4.0.0"
+    "semver" "^7.3.7"
+    "solidity-comments-extractor" "^0.0.7"
+    "string-width" "^4.2.3"
+
+"prettier@^2.3.0", "prettier@^2.3.1", "prettier@^2.7.1":
   "integrity" "sha512-ujppO+MkdPqoVINuDFDRLClm7D78qbDt0/NR+wp5FqEZOoTNAjPHWj17QRhu7geIHJfcNhRk1XVQmF8Bp3ye+g=="
   "resolved" "https://registry.npmjs.org/prettier/-/prettier-2.7.1.tgz"
   "version" "2.7.1"
@@ -3882,6 +3909,13 @@
   dependencies:
     "lru-cache" "^6.0.0"
 
+"semver@^7.3.7":
+  "integrity" "sha512-NB1ctGL5rlHrPJtFDVIVzTyQylMLu9N9VICA6HSFJo8MCGVTMW6gfpicwKmmK/dAjTOrqu5l63JJOpDSrAis3A=="
+  "resolved" "https://registry.npmjs.org/semver/-/semver-7.3.8.tgz"
+  "version" "7.3.8"
+  dependencies:
+    "lru-cache" "^6.0.0"
+
 "serialize-javascript@6.0.0":
   "integrity" "sha512-Qr3TosvguFt8ePWqsvRfrKyQXIiW+nGbYpy8XK24NQHE83caxWt+mIymTT19DGFbNWNLfEwsrkSmN64lVWB9ag=="
   "resolved" "https://registry.npmjs.org/serialize-javascript/-/serialize-javascript-6.0.0.tgz"
@@ -3971,6 +4005,11 @@
     "require-from-string" "^2.0.0"
     "semver" "^5.5.0"
     "tmp" "0.0.33"
+
+"solidity-comments-extractor@^0.0.7":
+  "integrity" "sha512-wciNMLg/Irp8OKGrh3S2tfvZiZ0NEyILfcRCXCD4mp7SgK/i9gzLfhY2hY7VMCQJ3kH9UB9BzNdibIVMchzyYw=="
+  "resolved" "https://registry.npmjs.org/solidity-comments-extractor/-/solidity-comments-extractor-0.0.7.tgz"
+  "version" "0.0.7"
 
 "solidity-coverage@^0.8.0", "solidity-coverage@^0.8.1":
   "integrity" "sha512-cv2bWb7lOXPE9/SSleDO6czkFiMHgP4NXPj+iW9W7iEKLBk7Cj0AGBiNmGX3V1totl9wjPrT0gHmABZKZt65rQ=="
