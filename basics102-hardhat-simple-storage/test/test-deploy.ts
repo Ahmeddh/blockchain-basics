@@ -1,5 +1,5 @@
-const {expect, assert } = require("chai")
-const {ethers} = require("hardhat")
+import {expect, assert } from "chai"
+import {ethers} from "hardhat"
 
 
 describe("Simple Storage", function(){

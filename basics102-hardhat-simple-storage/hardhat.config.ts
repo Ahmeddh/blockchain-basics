@@ -1,9 +1,9 @@
-require("@nomiclabs/hardhat-waffle")
-require("hardhat-gas-reporter")
-require("./tasks/block-number")
-require("@nomiclabs/hardhat-etherscan")
-require("dotenv").config()
-require("solidity-coverage")
+import "@nomiclabs/hardhat-waffle"
+import "hardhat-gas-reporter"
+import "./tasks/block-number"
+import "@nomiclabs/hardhat-etherscan"
+import "dotenv/config"
+import "solidity-coverage"
 
 const MATICMUM_RPC_URL= process.env.MATICMUM_RPC_URL
 const PRIVATE_KEY= process.env.PRIVATE_KEY
