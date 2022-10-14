@@ -1,8 +1,8 @@
-require("@nomicfoundation/hardhat-toolbox")
-require("dotenv").config()
-require("@nomiclabs/hardhat-etherscan")
-require("./tasks/block-number")
+require("@nomiclabs/hardhat-waffle")
 require("hardhat-gas-reporter")
+require("./tasks/block-number")
+require("@nomiclabs/hardhat-etherscan")
+require("dotenv").config()
 require("solidity-coverage")
 
 const MATICMUM_RPC_URL= process.env.MATICMUM_RPC_URL
