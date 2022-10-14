@@ -4,6 +4,7 @@ import "./tasks/block-number"
 import "@nomiclabs/hardhat-etherscan"
 import "dotenv/config"
 import "solidity-coverage"
+import "@typechain/hardhat"
 
 const MATICMUM_RPC_URL= process.env.MATICMUM_RPC_URL
 const PRIVATE_KEY= process.env.PRIVATE_KEY
