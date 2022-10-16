@@ -8,7 +8,7 @@ import "./PriceConverter.sol";
 contract FundMe {
   // uint254 is PriceConsumerV3;
 
-  address public i_owner;
+  address public owner;
   uint256 public constant MINIMUM_USD = 50 * 1e18;
   address[] public funders;
   mapping(address => uint256) public addressToAmountFunded;
@@ -17,12 +17,12 @@ contract FundMe {
   using PriceConverter for uint256;
 
   constructor(address _priceFeedAddress) public {
-    i_owner = msg.sender;
+    owner = msg.sender;
     priceFeed = AggregatorV3Interface(_priceFeedAddress);
   }
 
   modifier onlyOwner() {
-    require(i_owner == msg.sender, "Sender is not the owner");
+    require(owner == msg.sender, "Sender is not the owner");
     _;
   }
 
