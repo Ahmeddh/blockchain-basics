@@ -8,32 +8,51 @@ import "./PriceConverter.sol";
 contract FundMe {
   // uint254 is PriceConsumerV3;
 
-  address public owner;
+  address public i_owner;
   uint256 public constant MINIMUM_USD = 50 * 1e18;
-  address[] public funders;
-  mapping(address => uint256) public addressToAmountFunded;
-  AggregatorV3Interface public priceFeed;
+  address[] public s_funders;
+  mapping(address => uint256) public s_addressToAmountFunded;
+  AggregatorV3Interface public s_priceFeed;
 
   using PriceConverter for uint256;
 
   constructor(address _priceFeedAddress) public {
-    owner = msg.sender;
-    priceFeed = AggregatorV3Interface(_priceFeedAddress);
+    i_owner = msg.sender;
+    s_priceFeed = AggregatorV3Interface(_priceFeedAddress);
   }
 
-  modifier onlyOwner() {
-    require(owner == msg.sender, "Sender is not the owner");
+  modifier onlyowner() {
+    require(i_owner == msg.sender, "Sender is not the i_owner");
     _;
   }
 
   //Fund function
   function fund() public payable {
     require(
-      msg.value.getConversionRate(priceFeed) >= MINIMUM_USD,
+      msg.value.getConversionRate(s_priceFeed) >= MINIMUM_USD,
       "Amount sent is not enough"
     );
-    funders.push(msg.sender);
-    addressToAmountFunded[msg.sender] = msg.value;
+    s_funders.push(msg.sender);
+    s_addressToAmountFunded[msg.sender] = msg.value;
+  }
+
+  //Withdraw function
+  function withdraw() public onlyowner {
+    for (
+      uint256 fundersIndex = 0;
+      fundersIndex < s_funders.length;
+      fundersIndex++
+    ) {
+      address funderAddress = s_funders[fundersIndex];
+      s_addressToAmountFunded[funderAddress] = 0;
+    }
+
+    //reset s_funders address array
+    s_funders = new address[](0);
+
+    bool sendSuccess = payable(msg.sender).send(address(this).balance);
+
+    require(sendSuccess, "Send Failed");
   }
 
   function getAddressToAmountFunded(address _fundingAddress)
@@ -41,37 +60,14 @@ contract FundMe {
     view
     returns (uint256)
   {
-    return addressToAmountFunded[_fundingAddress];
+    return s_addressToAmountFunded[_fundingAddress];
   }
 
   function getFunder(uint256 _index) public view returns (address) {
-    return funders[_index];
+    return s_funders[_index];
   }
 
-  //Withdraw function
-  function withdraw() public onlyOwner {
-    for (
-      uint256 fundersIndex = 0;
-      fundersIndex < funders.length;
-      fundersIndex++
-    ) {
-      address funderAddress = funders[fundersIndex];
-      addressToAmountFunded[funderAddress] = 0;
-    }
-
-    //reset funders address array
-    funders = new address[](0);
-
-    bool sendSuccess = payable(msg.sender).send(address(this).balance);
-
-    require(sendSuccess, "Send Failed");
-  }
-
-  receive() external payable {
-    fund();
-  }
-
-  fallback() external payable {
-    fund();
+  function getOwner() public view returns (address) {
+    return i_owner;
   }
 }
