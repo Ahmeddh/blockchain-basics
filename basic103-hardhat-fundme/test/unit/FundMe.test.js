@@ -25,13 +25,13 @@ const { devChains } = require("../../helper-hardhat-config")
 
       describe("Constructor", async () => {
         it("Save the owner of the contract on local variable", async () => {
-          const fundMeOwner = await fundMe.owner()
+          const fundMeOwner = await fundMe.getOwner()
 
           assert.equal(fundMeOwner, deployer)
         })
 
         it("Set the price feed aggregator correctly", async () => {
-          const response = await fundMe.priceFeed()
+          const response = await fundMe.getPriceFeed()
           assert.equal(response, mockV3Aggregator.address)
         })
       })
@@ -128,7 +128,7 @@ const { devChains } = require("../../helper-hardhat-config")
           )
 
           //Make sure that funders are reset correctly
-          await expect(fundMe.funders(0)).to.be.reverted
+          await expect(fundMe.getFunder(0)).to.be.reverted
 
           for (let i = 1; i < accounts.length; i++) {
             assert.equal(

@@ -8,11 +8,11 @@ import "./PriceConverter.sol";
 contract FundMe {
   // uint254 is PriceConsumerV3;
 
-  address public i_owner;
+  address private i_owner;
   uint256 public constant MINIMUM_USD = 50 * 1e18;
-  address[] public s_funders;
+  address[] private s_funders;
   mapping(address => uint256) public s_addressToAmountFunded;
-  AggregatorV3Interface public s_priceFeed;
+  AggregatorV3Interface private s_priceFeed;
 
   using PriceConverter for uint256;
 
@@ -22,7 +22,7 @@ contract FundMe {
   }
 
   modifier onlyowner() {
-    require(i_owner == msg.sender, "Sender is not the i_owner");
+    require(i_owner == msg.sender, "Sender is not the owner");
     _;
   }
 
@@ -35,6 +35,9 @@ contract FundMe {
     s_funders.push(msg.sender);
     s_addressToAmountFunded[msg.sender] = msg.value;
   }
+
+  //Cheaper Withdraw function
+  function cheaperWithdraw() public onlyowner {}
 
   //Withdraw function
   function withdraw() public onlyowner {
@@ -69,5 +72,9 @@ contract FundMe {
 
   function getOwner() public view returns (address) {
     return i_owner;
+  }
+
+  function getPriceFeed() public view returns (AggregatorV3Interface) {
+    return s_priceFeed;
   }
 }
