@@ -36,6 +36,18 @@ contract FundMe {
     addressToAmountFunded[msg.sender] = msg.value;
   }
 
+  function getAddressToAmountFunded(address _fundingAddress)
+    public
+    view
+    returns (uint256)
+  {
+    return addressToAmountFunded[_fundingAddress];
+  }
+
+  function getFunder(uint256 _index) public view returns (address) {
+    return funders[_index];
+  }
+
   //Withdraw function
   function withdraw() public onlyOwner {
     for (
