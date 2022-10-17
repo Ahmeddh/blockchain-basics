@@ -1,7 +1,7 @@
 const { networkConfig, devChains } = require("../helper-hardhat-config")
 const { network } = require("hardhat")
 require("dotenv").config()
-const { verify } = require("../utils/verifiy")
+// const { verify } = require("../utils/verifiy")
 
 module.exports = async ({ getNamedAccounts, deployments }) => {
   const { deploy, log, get } = deployments
@@ -14,6 +14,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     const ethUsdAggregator = await get("MockV3Aggregator")
     ethUsdPriceFeed = ethUsdAggregator.address
   } else {
+    console.log("Price feed was set succesfully")
     ethUsdPriceFeed = networkConfig[chainId]["ethUsdPricefeed"]
   }
 
@@ -28,10 +29,10 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
     "-----------------------------------------------------------------------------"
   )
 
-  if (!devChains.includes(network.name) && process.env.ETHERSCAN_API_KEY) {
-    log("Verifying.....")
+  // if (!devChains.includes(network.name) && process.env.ETHERSCAN_API_KEY) {
+  //   log("Verifying.....")
 
-    await verify(fundMe.address, args)
-  }
+  //   await verify(fundMe.address, args)
+  // }
 }
 module.exports.tags = ["all", "fundMe"]
