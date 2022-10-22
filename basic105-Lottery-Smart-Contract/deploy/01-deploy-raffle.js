@@ -8,14 +8,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   const chainId = network.config.chainId
   let vrfCoordinatorV2Address, subscriptionId
   const VRF_FUND_AMOUNT = ethers.utils.parseEther("10")
-  /*
-  address vrfCoordinatorV2,
-    uint256 _entraceFee,
-    bytes32 _gasLane,
-    uint64 _subscriptionId,
-    uint32 _callbackGasLimit,
-    uint256 _interval
-   */
+
   if (devChains.includes(network.name)) {
     const vrfCoordinatorV2Mock = await ethers.getContract("VRFCoordinatorV2Mock")
     vrfCoordinatorV2Address = vrfCoordinatorV2Mock.address
@@ -33,7 +26,7 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   const callbackGasLimit = networkConfig[chainId]["callbackGasLimit"]
   const interval = networkConfig[chainId]["interval"]
 
-  const args = [
+  const arguments = [
     vrfCoordinatorV2Address,
     entranceFee,
     gasLane,
@@ -43,14 +36,15 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
   ]
   const raffle = await deploy("Raffle", {
     from: deployer,
-    args: args,
+    args: arguments,
     log: true,
     waitConfirmations: network.config.blockConfirmation || 1,
   })
 
   if (!devChains.includes(network.name) && process.env.ETHERSCAN_API_KEY) {
     log("Verifying.....")
-    await verify(raffle.address, args)
+    log(arguments)
+    await verify(raffle.address, arguments)
     log("-------------------------------------------------------------------")
   }
 }

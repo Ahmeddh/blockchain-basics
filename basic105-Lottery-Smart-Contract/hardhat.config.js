@@ -9,7 +9,7 @@ require("dotenv").config()
 const MATICMUM_RPC_URL = process.env.MATICMUM_RPC_URL
 const PRIVATE_KEY = process.env.PRIVATE_KEY
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY
-const OPT_GOERLI_RPC_URL = process.env.OPT_GOERLI_RPC_URL
+const GOERLI_RPC_URL = process.env.GOERLI_RPC_URL
 const COIN_MARKETCAP_API_KEY = process.env.COIN_MARKETCAP_API_KEY
 
 /** @type import('hardhat/config').HardhatUserConfig */
@@ -20,12 +20,12 @@ module.exports = {
       url: MATICMUM_RPC_URL,
       accounts: [PRIVATE_KEY],
       chainId: 80001,
-      blockConfirmation: 6,
+      blockConfirmation: 3,
     },
-    optimism_goreli: {
-      url: OPT_GOERLI_RPC_URL,
+    goerli: {
+      url: GOERLI_RPC_URL,
       accounts: [PRIVATE_KEY],
-      chainId: 420,
+      chainId: 5,
       blockConfirmation: 6,
     },
     localhost: {
@@ -34,9 +34,14 @@ module.exports = {
     },
   },
   etherscan: {
-    // Your API key for Etherscan
-    // Obtain one at https://etherscan.io/
+    // yarn hardhat verify --network <NETWORK> <CONTRACT_ADDRESS> <CONSTRUCTOR_PARAMETERS>
     apiKey: ETHERSCAN_API_KEY,
+    maticmum: {
+      apiKey: ETHERSCAN_API_KEY,
+    },
+    goerli: {
+      apiKey: ETHERSCAN_API_KEY,
+    },
   },
   gasReporter: {
     enabled: false,
@@ -55,9 +60,9 @@ module.exports = {
     },
   },
   solidity: {
-    compilers: [{ version: "0.8.8" }, { version: "0.4.6" }],
+    compilers: [{ version: "0.8.8" }],
   },
   mocha: {
-    timeout: 200000, //200 seconds max
+    timeout: 5000000, //200 seconds max
   },
 }

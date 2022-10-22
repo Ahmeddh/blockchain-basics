@@ -108,7 +108,7 @@ const { devChains, networkConfig } = require("../../helper-hardhat-config")
             await accountConnectedRaffle.enterRaffle({ value: raffleEntranceFee })
           }
           raffle.connect(deployer)
-          const startingTimeStamp = await raffle.getLastTimestamp()
+          const startingTimeStamp = await raffle.getLatestTimestamp()
           await new Promise(async (resolve, reject) => {
             raffle.once("WinnerPicked", async () => {
               console.log("Found the event")
@@ -116,7 +116,7 @@ const { devChains, networkConfig } = require("../../helper-hardhat-config")
                 const raffleWinner = await raffle.getRecentWinner()
                 const raffleState = await raffle.getRaffleState()
                 const numPlayers = await raffle.getNumberOfPlayer()
-                const endingTimestamp = await raffle.getLastTimestamp()
+                const endingTimestamp = await raffle.getLatestTimestamp()
                 const winnerEndingBalance = await accounts[1].getBalance()
 
                 assert.equal(numPlayers.toString(), "0")

@@ -59,8 +59,8 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
     uint32 _callbackGasLimit,
     uint256 _interval
   ) VRFConsumerBaseV2(vrfCoordinatorV2) {
-    i_entrance_fee = _entraceFee;
     i_vrfCoordinator = VRFCoordinatorV2Interface(vrfCoordinatorV2);
+    i_entrance_fee = _entraceFee;
     i_gasLane = _gasLane;
     i_subscriptionId = _subscriptionId;
     i_callbackGasLimit = _callbackGasLimit;
@@ -94,9 +94,10 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
     bytes memory /*checkData*/
   )
     public
+    view
     override
     returns (
-      bool upkeepNeeeded,
+      bool upkeepNeeded,
       bytes memory /* performData */
     )
   {
@@ -104,7 +105,7 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
     bool timePassed = ((block.timestamp - s_lastTimeStamp) > i_interval);
     bool hasPlayers = s_player.length > 0;
     bool hasBalance = address(this).balance > 0;
-    upkeepNeeeded = (isOpened && timePassed && hasPlayers && hasBalance);
+    upkeepNeeded = (isOpened && timePassed && hasPlayers && hasBalance);
   }
 
   //Pick winner
@@ -175,7 +176,7 @@ contract Raffle is VRFConsumerBaseV2, KeeperCompatibleInterface {
     return s_player.length;
   }
 
-  function getLastTimestamp() public view returns (uint256) {
+  function getLatestTimestamp() public view returns (uint256) {
     return s_lastTimeStamp;
   }
 
