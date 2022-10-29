@@ -35,6 +35,19 @@ const LotteryEntrance = () => {
         functionName: "getRecentWinner",
     })
 
+    //TODO: Add listener to WinnerPicked event
+    // const listenToWinnerEvent = async () => {
+    //     const provider = new ethers.providers.Web3Provider(window.ethereum)
+    //     const contract = new ethers.Contract(raffleAddress, abi, provider)
+    //     contract.on("WinnerPicked", (newWinner) => {
+    //         setRecentWinner(newWinner)
+    //     })
+    // }
+
+    // useEffect(() => {
+    //     updateUI()
+    // }, [recentWinner])
+
     const updateUI = async () => {
         const entranceFeeFromCall = await getEntranceFee()
         const numberOfPlayerFromCall = await getNumberOfPlayer()
@@ -50,7 +63,11 @@ const LotteryEntrance = () => {
         }
     }, [isWeb3Enabled])
 
-    const { runContractFunction: enterRaffle } = useWeb3Contract({
+    const {
+        runContractFunction: enterRaffle,
+        isFetching,
+        isLoading,
+    } = useWeb3Contract({
         abi: abi,
         contractAddress: raffleAddress,
         params: {},
@@ -75,10 +92,12 @@ const LotteryEntrance = () => {
     }
 
     return (
-        <div>
+        <div className="p-5">
             {raffleAddress ? (
-                <>
+                <div className="">
                     <button
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-2 rounded ml-auto"
+                        disabled={isLoading || isFetching}
                         onClick={async () => {
                             await enterRaffle({
                                 onSuccess: handleSuccess,
@@ -88,14 +107,20 @@ const LotteryEntrance = () => {
                             })
                         }}
                     >
-                        Enter Raffle
+                        {isFetching || isLoading ? (
+                            <>
+                                <div className="animate-spin spinner-border h-8 w-8 border-b-2 rounded-full"></div>
+                            </>
+                        ) : (
+                            <div>Enter Raffle</div>
+                        )}{" "}
                     </button>
-                    <div>Entrance Fee is {ethers.utils.formatUnits(entranceFee, "ether")} ETH</div>
-                    <br />
+                    <div>
+                        Entrance Fee is {ethers.utils.formatUnits(entranceFee, "ether")} ETH{" "}
+                    </div>
                     <div>Number of Players is {numOfPlayers.toString()}</div>
-                    <br />
-                    <div>Recent winner is {recentWinner.toString()}</div>
-                </>
+                    <div>Recent Winner is {recentWinner}</div>
+                </div>
             ) : (
                 <div>There is no contract address detected!</div>
             )}
