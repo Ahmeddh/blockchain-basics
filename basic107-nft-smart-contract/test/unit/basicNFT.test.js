@@ -13,15 +13,21 @@ const { developmentChains, networkConfig } = require("../../helper-hardhat-confi
           })
 
           describe("Constructor", () => {
-              it("Token counter initialized successfully", async () => {
+              it("Initialize BasicNFT contract correctly", async () => {
+                  const name = await basicNFT.name()
+                  const symbol = await basicNFT.symbol()
                   const tokenCounter = await basicNFT.getTokenCounter()
+                  assert.equal(name, "AhmedDh")
+                  assert.equal(symbol, "DHN")
                   assert.equal(tokenCounter.toString(), "0")
               })
           })
           describe("mintNFT", () => {
-              it("Can mint NFT succesfully and increase token counter", async () => {
+              beforeEach(async () => {
                   const tx = await basicNFT.mintNFT()
                   await tx.wait(1)
+              })
+              it("Can mint NFT succesfully and increase token counter", async () => {
                   const tokenCounter = await basicNFT.getTokenCounter()
                   assert.equal(tokenCounter.toString(), "1")
               })
