@@ -5,6 +5,7 @@ const { verify } = require("../utils/verify")
 module.exports = async ({ deployments, getNamedAccounts }) => {
     const { deploy, log } = deployments
     const { deployer } = await getNamedAccounts()
+    const chainId = network.config.chainId
 
     log("---------------------------------------------------")
     const arguments = []
@@ -20,4 +21,4 @@ module.exports = async ({ deployments, getNamedAccounts }) => {
         log("---------------------------------------------------")
     }
 }
-module.exports.tags = ["all"]
+module.exports.tags = ["all", "basic"]
