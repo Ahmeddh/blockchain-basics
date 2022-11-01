@@ -4,19 +4,19 @@ const { developmentChains, networkConfig } = require("../../helper-hardhat-confi
 
 !developmentChains.includes(network.name)
     ? describe.skip
-    : describe("BasicNFT Unit Tests", () => {
-          let basicNFT, deployer
+    : describe("BasicNft Unit Tests", () => {
+          let BasicNft, deployer
           beforeEach(async () => {
               deployer = (await getNamedAccounts()).deployer
               await deployments.fixture(["all"])
-              basicNFT = await ethers.getContract("BasicNFT", deployer)
+              BasicNft = await ethers.getContract("BasicNft", deployer)
           })
 
           describe("Constructor", () => {
-              it("Initialize BasicNFT contract correctly", async () => {
-                  const name = await basicNFT.name()
-                  const symbol = await basicNFT.symbol()
-                  const tokenCounter = await basicNFT.getTokenCounter()
+              it("Initialize BasicNft contract correctly", async () => {
+                  const name = await BasicNft.name()
+                  const symbol = await BasicNft.symbol()
+                  const tokenCounter = await BasicNft.getTokenCounter()
                   assert.equal(name, "AhmedDh")
                   assert.equal(symbol, "DHN")
                   assert.equal(tokenCounter.toString(), "0")
@@ -24,11 +24,11 @@ const { developmentChains, networkConfig } = require("../../helper-hardhat-confi
           })
           describe("mintNFT", () => {
               beforeEach(async () => {
-                  const tx = await basicNFT.mintNFT()
+                  const tx = await BasicNft.mintNFT()
                   await tx.wait(1)
               })
               it("Can mint NFT succesfully and increase token counter", async () => {
-                  const tokenCounter = await basicNFT.getTokenCounter()
+                  const tokenCounter = await BasicNft.getTokenCounter()
                   assert.equal(tokenCounter.toString(), "1")
               })
           })
