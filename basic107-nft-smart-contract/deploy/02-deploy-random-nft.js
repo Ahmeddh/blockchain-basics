@@ -15,15 +15,15 @@ const metadataTemplate = {
         },
     ],
 }
-
+let tokenUris = [
+    "ipfs://QmUqq92bn3baAmM1tiDxbdQWX1kYvmMkKLT543RYc9wC8N",
+    "ipfs://QmX3yoGyzyRZUz2LUcwKfCGhZ6HEs5jtjm3yujyYHiCxyB",
+    "ipfs://QmURPrqLh5z6s3D2fBc76no9uKFDu4qbnkVitNhe3mwmtP",
+]
 module.exports = async ({ deployments, getNamedAccounts }) => {
     const { deploy, log } = deployments
     const { deployer } = await getNamedAccounts()
-    let tokenUris = [
-        "ipfs://QmUqq92bn3baAmM1tiDxbdQWX1kYvmMkKLT543RYc9wC8N",
-        "ipfs://QmX3yoGyzyRZUz2LUcwKfCGhZ6HEs5jtjm3yujyYHiCxyB",
-        "ipfs://QmURPrqLh5z6s3D2fBc76no9uKFDu4qbnkVitNhe3mwmtP",
-    ]
+
     log("---------------------------------------------------")
     if (process.env.UPLOAD_TO_PINATA == "true") {
         tokenUris = await handleTokenUri()
