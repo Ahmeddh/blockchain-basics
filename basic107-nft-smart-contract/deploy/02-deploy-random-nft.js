@@ -1,20 +1,33 @@
 const { network } = require("hardhat")
 const { developmentChains, networkConfig } = require("../helper-hardhat-config")
 const { verify } = require("../utils/verify")
+const { storeImages, storeTokenUriMetadata } = require("../utils/uploadFilesToPinata")
+
+const imagesLocation = "./images/randomNfts"
+const metadataTemplate = {
+    name: "",
+    description: "",
+    image: "",
+    attributes: [
+        {
+            trait_type: "Cute Dog",
+            value: 100,
+        },
+    ],
+}
 
 module.exports = async ({ deployments, getNamedAccounts }) => {
     const { deploy, log } = deployments
     const { deployer } = await getNamedAccounts()
-
+    let tokenUris = [
+        "ipfs://QmUqq92bn3baAmM1tiDxbdQWX1kYvmMkKLT543RYc9wC8N",
+        "ipfs://QmX3yoGyzyRZUz2LUcwKfCGhZ6HEs5jtjm3yujyYHiCxyB",
+        "ipfs://QmURPrqLh5z6s3D2fBc76no9uKFDu4qbnkVitNhe3mwmtP",
+    ]
     log("---------------------------------------------------")
-    /**
- * address _vrfCoordinatorV2,
-        uint64 _subscriptionId,
-        bytes32 _gasLane,
-        uint32 _callbackGasLimit,
-        string[3] memory _dogTokenUris,
-        uint256 _mintPrice
- */
+    if (process.env.UPLOAD_TO_PINATA == "true") {
+        tokenUris = await handleTokenUri()
+    }
     const VRF_FUND_AMOUNT = ethers.utils.parseEther("10")
     const chainId = network.config.chainId
     let vrfCoordinatorV2Address, subscriptionId
@@ -30,11 +43,6 @@ module.exports = async ({ deployments, getNamedAccounts }) => {
         vrfCoordinatorV2Address = networkConfig[chainId]["vrfCoordinatorV2"]
         subscriptionId = networkConfig[chainId]["subscriptionId"]
     }
-    let tokenUris = [
-        "ipfs://QmaVkBn2tKmjbhphU7eyztbvSQU5EXDdqRyXZtRhSGgJGo",
-        "ipfs://QmYQC5aGZu2PTH8XzbJrbDnvhj3gVs7ya33H9mqUNvST3d",
-        "ipfs://QmZYmH5iDbD6v3U2ixoVAjioSzvWJszDzYdbeCLquGSpVm",
-    ]
     // const vrfCoordinatorV2=
     const arguments = [
         vrfCoordinatorV2Address,
@@ -55,5 +63,28 @@ module.exports = async ({ deployments, getNamedAccounts }) => {
         await verify(randomNft.address, arguments)
         log("---------------------------------------------------")
     }
+}
+
+async function handleTokenUri() {
+    tokenUris = []
+    //store images to IPFS
+    //store metadata to IPFS
+    const { responses: imageUploadResponses, files } = await storeImages(imagesLocation)
+    for (imageUploadResponsesIndex in imageUploadResponses) {
+        //Create image metadata
+        let tokenUrisMetadata = { ...metadataTemplate }
+        tokenUrisMetadata.name = files[imageUploadResponsesIndex].replace(".png", "")
+        tokenUrisMetadata.description = `An adorable ${tokenUrisMetadata.name}`
+        tokenUrisMetadata.image = `ipfs://${imageUploadResponses[imageUploadResponsesIndex].IpfsHash}`
+
+        //Store image metadata to IPFS
+        const metadataResponse = await storeTokenUriMetadata(tokenUrisMetadata)
+        console.log(`Uploading ${tokenUrisMetadata.name}`)
+        tokenUris.push(`ipfs://${metadataResponse.IpfsHash}`)
+    }
+    console.log("Token URI uploaded, they are")
+    console.log(tokenUris)
+
+    return tokenUris
 }
 module.exports.tags = ["all", "random"]
