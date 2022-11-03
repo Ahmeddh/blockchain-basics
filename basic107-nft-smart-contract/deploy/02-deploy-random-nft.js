@@ -90,4 +90,4 @@ async function handleTokenUri() {
 
     return tokenUris
 }
-module.exports.tags = ["all", "random"]
+module.exports.tags = ["all", "random", "main"]

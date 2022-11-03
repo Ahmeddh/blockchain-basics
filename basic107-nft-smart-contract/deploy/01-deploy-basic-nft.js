@@ -21,4 +21,4 @@ module.exports = async ({ deployments, getNamedAccounts }) => {
         log("---------------------------------------------------")
     }
 }
-module.exports.tags = ["all", "basic"]
+module.exports.tags = ["all", "basic", "main"]

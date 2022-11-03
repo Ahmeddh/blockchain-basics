@@ -36,6 +36,12 @@ const { developmentChains, networkConfig } = require("../../helper-hardhat-confi
               })
           })
           describe("fulfillRandomWords", () => {
+              beforeEach(async () => {
+                  await deployments.fixture(["mocks", "all"])
+                  deployer = (await getNamedAccounts()).deployer
+                  randomNft = await ethers.getContract("RandomNft", deployer)
+                  vrfCoordinatorV2Mock = await ethers.getContract("VRFCoordinatorV2Mock", deployer)
+              })
               it("mints NFT after random number is returned", async () => {
                   await new Promise(async (resolve, reject) => {
                       //request NFT
@@ -43,7 +49,8 @@ const { developmentChains, networkConfig } = require("../../helper-hardhat-confi
                           try {
                               const tokenCounter = await randomNft.getTokenCounter()
                               const tokenUri = await randomNft.getDogTokenUris(tokenCounter)
-                              assert.equal(tokenCounter, 1)
+                              //   console.log(tokenCounter.toString())
+                              assert.equal(tokenCounter.toString(), "2")
                               assert.equal(tokenUri.includes("ipfs://"), true)
                               resolve()
                           } catch (error) {
