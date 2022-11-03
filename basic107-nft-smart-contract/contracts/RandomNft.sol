@@ -44,7 +44,7 @@ contract RandomNft is VRFConsumerBaseV2, ERC721URIStorage {
 
     //NFT Variables
     uint256 private s_tokenCounter;
-    uint256 internal constant MAX_CHANCE_VALUE = 3;
+    uint256 internal constant MAX_CHANCE_VALUE = 100;
     string[] internal s_dogTokenUris;
     uint256 internal immutable i_mintPrice;
     address public s_owner;
@@ -96,6 +96,7 @@ contract RandomNft is VRFConsumerBaseV2, ERC721URIStorage {
         uint256 moddedRng = randomWords[0] % MAX_CHANCE_VALUE;
 
         Breed dogType = getBreedFromModdedRng(moddedRng);
+        s_tokenCounter += 1;
         _safeMint(owner, newTokenId);
         _setTokenURI(newTokenId, s_dogTokenUris[uint256(dogType)]);
         emit NftMinted(owner, dogType);
@@ -106,7 +107,7 @@ contract RandomNft is VRFConsumerBaseV2, ERC721URIStorage {
         uint256[3] memory chanceArray = getChanceArray();
 
         for (uint256 i = 0; i < chanceArray.length; i++) {
-            if (_moddedRng >= cummulativeSum && _moddedRng < cummulativeSum + chanceArray[i]) {
+            if (_moddedRng >= cummulativeSum && _moddedRng < chanceArray[i]) {
                 return Breed(i);
             }
             cummulativeSum += chanceArray[i];
@@ -131,11 +132,15 @@ contract RandomNft is VRFConsumerBaseV2, ERC721URIStorage {
         return i_mintPrice;
     }
 
-    function getDogTokenUri(uint256 _index) public view returns (string memory) {
+    function getDogTokenUris(uint256 _index) public view returns (string memory) {
         return s_dogTokenUris[_index];
     }
 
     function getTokenCounter() public view returns (uint256) {
         return s_tokenCounter;
+    }
+
+    function getOwnerByRequestId(uint256 requestId) public view returns (address) {
+        return s_requestIdToAddress[requestId];
     }
 }
