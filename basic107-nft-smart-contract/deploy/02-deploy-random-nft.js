@@ -1,10 +1,5 @@
 const { network, ethers } = require("hardhat")
-const {
-    developmentChains,
-    networkConfig,
-    INITIAL_ANSWER,
-    DECIMALS,
-} = require("../helper-hardhat-config")
+const { developmentChains, networkConfig } = require("../helper-hardhat-config")
 const { verify } = require("../utils/verify")
 const { storeImages, storeTokenUriMetadata } = require("../utils/uploadFilesToPinata")
 
