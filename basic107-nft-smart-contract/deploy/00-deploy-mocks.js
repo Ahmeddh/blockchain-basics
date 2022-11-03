@@ -1,12 +1,11 @@
 const { network, ethers } = require("hardhat")
-const { networkConfig } = require("../helper-hardhat-config")
 const BASE_FEE = ethers.utils.parseEther("0.25")
 const GAS_PRICE_LINK = 1e9
 
 module.exports = async ({ getNamedAccounts, deployments }) => {
     const { deploy, log } = deployments
     const { deployer } = await getNamedAccounts()
-    const { developmentChains } = require("../helper-hardhat-config")
+    const { developmentChains, DECIMALS, INITIAL_ANSWER } = require("../helper-hardhat-config")
 
     const args = [BASE_FEE, GAS_PRICE_LINK]
 
@@ -16,7 +15,15 @@ module.exports = async ({ getNamedAccounts, deployments }) => {
             args: args,
             log: true,
         })
-        log("Mock deployed!")
+        log("VRFCoordinatorV2Mock Mock deployed!")
+        log("-------------------------------------------------------------------")
+        const arguments = [DECIMALS, INITIAL_ANSWER]
+        await deploy("MockV3Aggregator", {
+            from: deployer,
+            args: arguments,
+            log: true,
+        })
+        log("MockV3Aggregator Mock deployed!")
         log("-------------------------------------------------------------------")
     }
     //Deploy mock and get
