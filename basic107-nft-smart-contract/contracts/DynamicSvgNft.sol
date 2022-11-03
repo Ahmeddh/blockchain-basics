@@ -1,15 +1,19 @@
 // SPDX-License-Identifier: MIT
+import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 import "base64-sol/base64.sol";
+import "hardhat/console.sol";
 
 pragma solidity ^0.8.8;
+
+error ERC721Metadata__URI_QueryFor_NonExistentToken();
 
 contract DynamicSvgNft is ERC721 {
     //Variables Declaration
     uint256 private s_tokenCounter;
-    string private i_happyImage;
-    string private i_sadImage;
+    string private s_happyImage;
+    string private s_sadImage;
     string private constant base64EncodedPrefix = "data:image/svg+xml;base64,";
     AggregatorV3Interface internal immutable i_priceFeed;
 
@@ -25,8 +29,8 @@ contract DynamicSvgNft is ERC721 {
         string memory _sadSVG
     ) ERC721("DynamicSvgNft", "DSVG") {
         s_tokenCounter = 0;
-        i_happyImage = svgToImageUri(_happySVG);
-        i_sadImage = svgToImageUri(_sadSVG);
+        s_happyImage = svgToImageUri(_happySVG);
+        s_sadImage = svgToImageUri(_sadSVG);
         i_priceFeed = AggregatorV3Interface(_priceFeedAddress);
     }
 
@@ -51,19 +55,17 @@ contract DynamicSvgNft is ERC721 {
         return "data:application/json;base64,";
     }
 
-    function tokenURI(uint256 tokenId) public view override returns (string memory) {
+    function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
         /**
          * '{"name":"" , "description":"An adorable Pup" , "image":"" , "attribute":{"trait_type":"Cutest","value":"100"}}'
          */
-        string memory imgUri;
+        require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
+
+        string memory imageURI = s_sadImage;
         (, int256 price, , , ) = i_priceFeed.latestRoundData();
         if (price >= s_tokenUriToHighValue[tokenId]) {
-            imgUri = i_happyImage;
-        } else {
-            imgUri = i_sadImage;
+            imageURI = s_happyImage;
         }
-        require(_exists(tokenId), "URI query for nonexistent tokenId");
-
         return
             string(
                 abi.encodePacked(
@@ -74,7 +76,7 @@ contract DynamicSvgNft is ERC721 {
                                 '{"name":"',
                                 name(),
                                 '" , "description":"An adorable Pup" , "image":"',
-                                imgUri,
+                                imageURI,
                                 '" , "attribute":{"trait_type":"Cutest","value":"100"}}'
                             )
                         )
