@@ -20,3 +20,6 @@ artifacts
 #Deployment
 deployments
 .gas-report.txt
+
+#DS_STORE
+.DS_Store
