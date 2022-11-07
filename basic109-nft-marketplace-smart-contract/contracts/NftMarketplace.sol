@@ -4,6 +4,9 @@ pragma solidity ^0.8.8;
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
+///////////////////////////
+////////  Errors  /////////
+///////////////////////////
 error NftMarketplace__PriceMustBeAboveZero();
 error NftMarketplace__NotApprovedForMarketplace();
 error NftMarketplace__AlreadyListed(address nftAddress, uint256 tokenId);
@@ -14,11 +17,9 @@ error NftMarketplace__NoProceedsForThisAddress(address seller);
 error NftMarketplace__TransferFailed(address seller, uint256 amount);
 
 contract NftMarketplace is ReentrancyGuard {
-    // 1. 'listItem': List NFTs on the marketplace
-    // 2. 'buyItem': Buy the NFT
-    // 3. 'cancel': Cancel a listing
-    // 4. 'updateListing': Update a price
-    // 5. 'withdrawProcess': Withdraw payment for my bought NFTs
+    ///////////////////////////
+    ////////  Events  /////////
+    ///////////////////////////
     event ItemListed(
         address indexed seller,
         address indexed nftAddress,
@@ -47,6 +48,7 @@ contract NftMarketplace is ReentrancyGuard {
         uint256 updatedPrice
     );
 
+    //Listing struct
     struct Listing {
         uint256 price;
         address seller;
@@ -57,7 +59,9 @@ contract NftMarketplace is ReentrancyGuard {
     //Mapping between seller and proceed (NFT value sold)
     mapping(address => uint256) private s_proceeds;
 
-    constructor() {}
+    ///////////////////////////
+    ///////  Modifiers ////////
+    ///////////////////////////
 
     modifier notListed(
         address _nftAddress,
