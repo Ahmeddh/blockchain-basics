@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "browserslist": "^4.21.4",
-    "moralis": "^1.5.11",
+    "moralis": "^2.8.1",
     "next": "12.1.5",
     "react": "18.1.0",
     "react-dom": "18.1.0",
@@ -20,6 +20,8 @@
     "web3uikit": "^0.0.133"
   },
   "devDependencies": {
+    "@moralisweb3/common-evm-utils": "^2.8.1",
+    "@moralisweb3/evm-utils": "^2.8.0",
     "autoprefixer": "^10.4.13",
     "dotenv": "^16.0.0",
     "init": "^0.1.2",

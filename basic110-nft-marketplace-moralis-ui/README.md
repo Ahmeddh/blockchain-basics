@@ -5,6 +5,12 @@
 2. Sell page:
     1. You can list your NFT on the marketplace
 
+Moralis:
+1. Implement moralis self hosting
+2. Tell Moralis to listen to smart contract events
+    1. Connect to our blockchain 
+    2. Which contracts, what events, what to do when it hear those events
+
 
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
