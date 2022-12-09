@@ -145,6 +145,8 @@ const listingUpdatedAbi = [
 async function main() {
     await Moralis.start({
         apiKey: process.env.NEXT_PUBLIC_API_KEY,
+        // serverUrl: process.env.NEXT_PUBLIC_SERVER_URL,
+        // appId: process.env.NEXT_PUBLIC_APPLICATION_ID,
     })
     //ItemListed
     await startStream(
