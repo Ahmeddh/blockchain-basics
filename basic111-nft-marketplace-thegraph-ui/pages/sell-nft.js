@@ -1,4 +1,3 @@
-import Head from "next/head"
 import styles from "../styles/Home.module.css"
 import { Form, useNotification } from "web3uikit"
 import { ethers } from "ethers"
