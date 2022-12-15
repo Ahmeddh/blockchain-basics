@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Modal, Input, useNotification } from "web3uikit"
 import { useWeb3Contract } from "react-moralis"
 import nftMarketplaceAbi from "../constants/NftMarketplace.json"
@@ -10,9 +10,12 @@ export default function UpdateListingModal({
     marketplaceAddress,
     isVisible,
     onClose,
+    refetch,
 }) {
     const [priceToUpdateListinWith, setPriceToUpdateListinWith] = useState(0)
+    const [refreshDataNeeded, setRefreshDataNeeded] = useState(false)
     const dispatch = useNotification()
+
     const handleUpdateListingSuccess = async (tx) => {
         await tx.wait(1)
         dispatch({
@@ -21,6 +24,7 @@ export default function UpdateListingModal({
             title: "Listing Update - Please refresh",
             position: "topR",
         })
+        refetch()
         onClose && onClose()
         setPriceToUpdateListinWith("0")
     }

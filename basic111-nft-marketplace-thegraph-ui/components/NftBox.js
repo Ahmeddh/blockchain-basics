@@ -19,7 +19,14 @@ const truncateString = (fullStr, strLen) => {
         fullStr.substring(0, frontChars) + separator + fullStr.substring(fullStr.length - backChars)
     )
 }
-export default function NftBox({ nftAddress, marketplaceAddress, price, seller, tokenId }) {
+export default function NftBox({
+    nftAddress,
+    marketplaceAddress,
+    price,
+    seller,
+    tokenId,
+    refetch,
+}) {
     const { isWeb3Enabled, account } = useMoralis()
     const [imageURI, setImageURI] = useState("")
     const [tokenName, setTokenName] = useState("")
@@ -73,10 +80,12 @@ export default function NftBox({ nftAddress, marketplaceAddress, price, seller, 
             ? setShowModal(true)
             : buyItem({
                   onError: (error) => console.log(error),
-                  onSuccess: () => handleBuyItemSuccess(),
+                  onSuccess: handleBuyItemSuccess,
               })
     }
     const handleBuyItemSuccess = async (tx) => {
+        await tx.wait(1)
+        refetch()
         dispatch({
             type: "success",
             title: "Item bought",
@@ -90,6 +99,7 @@ export default function NftBox({ nftAddress, marketplaceAddress, price, seller, 
                 {imageURI ? (
                     <div className="p-3">
                         <UpdateListingModal
+                            refetch={refetch}
                             isVisible={showModal}
                             marketplaceAddress={marketplaceAddress}
                             tokenId={tokenId}
