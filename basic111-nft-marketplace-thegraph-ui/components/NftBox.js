@@ -84,7 +84,13 @@ export default function NftBox({
               })
     }
     const handleBuyItemSuccess = async (tx) => {
-        await tx.wait(1)
+        dispatch({
+            type: "warning",
+            title: "Confirming... ",
+            message: " Waiting for Tx to confirm",
+            position: "topR",
+        })
+        await tx.wait(2)
         refetch()
         dispatch({
             type: "success",

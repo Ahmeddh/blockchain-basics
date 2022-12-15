@@ -17,15 +17,21 @@ export default function UpdateListingModal({
     const dispatch = useNotification()
 
     const handleUpdateListingSuccess = async (tx) => {
-        await tx.wait(1)
+        dispatch({
+            type: "warning",
+            title: "Confirming... ",
+            message: "Pending: Waiting for Tx to confirm",
+            position: "topR",
+        })
+        onClose && onClose()
+        await tx.wait(2)
+        refetch()
         dispatch({
             type: "success",
             message: " Listing updated!",
             title: "Listing Update - Please refresh",
             position: "topR",
         })
-        refetch()
-        onClose && onClose()
         setPriceToUpdateListinWith("0")
     }
     const { runContractFunction: updateListing } = useWeb3Contract({
